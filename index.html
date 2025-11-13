@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Morfis Medicament — Inventario & Ventas</title>
+
+  <!-- Bootstrap (última versión estable vía CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@latest/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Hoja de estilos propia -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-light">
+
+  <!-- Banner/Encabezado fijo -->
+  <header class="navbar navbar-expand-lg navbar-dark bg-gradient-primary sticky-top shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M7.5 4C6.12 4 5 5.57 5 7.5S6.12 11 7.5 11 10 9.43 10 7.5 8.88 4 7.5 4zm9 0C15.12 4 14 5.57 14 7.5S15.12 11 16.5 11 19 9.43 19 7.5 17.88 4 16.5 4zM4.5 12C3.12 12 2 13.57 2 15.5S3.12 19 4.5 19 7 17.43 7 15.5 5.88 12 4.5 12zm15 0c-1.38 0-2.5 1.57-2.5 3.5S18.12 19 19.5 19 22 17.43 22 15.5 20.88 12 19.5 12zM12 12.5c-2.9 0-6 1.6-6 4.2 0 1.66 1.57 3.3 6 3.3s6-1.64 6-3.3c0-2.6-3.1-4.2-6-4.2z"/>
+        </svg>
+        <span class="fw-bold">Morfis Medicament</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <nav id="topNav" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link active" href="#panel">Panel</a></li>
+          <li class="nav-item"><a class="nav-link" href="#inventario">Inventario</a></li>
+          <li class="nav-item"><a class="nav-link" href="#ventas">Ventas</a></li>
+          <li class="nav-item"><a class="nav-link" href="#clientes">Clientes</a></li>
+          <li class="nav-item"><a class="nav-link" href="#niveles">Niveles de precio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#promociones">Promociones</a></li>
+          <li class="nav-item"><a class="nav-link" href="#reportes">Reportes</a></li>
+          <li class="nav-item">
+            <button id="btnDarkMode" class="btn btn-sm btn-outline-light ms-lg-2"><i class="bi bi-moon-stars"></i> Modo</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="container-fluid py-4">
+
+    <!-- ======= PANEL / KPI ======= -->
+    <section id="panel" class="mb-4">
+      <div class="row g-3">
+        <div class="col-12">
+          <div class="card border-0 shadow-sm hero-card overflow-hidden">
+            <div class="row g-0 align-items-center">
+              <div class="col-md-7 p-4">
+                <h1 class="h3 mb-2">Sistema de Inventario y Ventas</h1>
+                <p class="text-body-secondary mb-3">
+                  Gestiona productos, clientes, niveles de precio, promociones y ventas — todo en un mismo lugar.
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                  <a href="#inventario" class="btn btn-primary"><i class="bi bi-capsule me-1"></i> Ver inventario</a>
+                  <a href="#ventas" class="btn btn-outline-primary"><i class="bi bi-bag-check me-1"></i> Nueva venta</a>
+                </div>
+              </div>
+              <div class="col-md-5 d-none d-md-block position-relative">
+                <div class="p-4">
+                  <img class="img-fluid rounded-4 shadow-sm vet-illustration" alt="Veterinaria" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'><rect width='100%' height='100%' fill='%23f6fbff'/><circle cx='620' cy='120' r='60' fill='%23d7efff'/><circle cx='690' cy='180' r='36' fill='%23e8f6ff'/><g fill='%2391caff'><path d='M140 360h220c30 0 54 24 54 54v18H86v-18c0-30 24-54 54-54z'/><rect x='160' y='220' width='60' height='120' rx='12'/><rect x='280' y='220' width='60' height='120' rx='12'/><rect x='220' y='180' width='60' height='40' rx='8'/></g><g fill='%232b78e4'><circle cx='210' cy='210' r='14'/><circle cx='310' cy='210' r='14'/><rect x='245' y='250' width='30' height='10' rx='5'/></g><g fill='%23ffd166'><path d='M470 250h180a24 24 0 0124 24v110H446V274a24 24 0 0124-24z'/><rect x='500' y='270' width='40' height='70' rx='8'/><rect x='580' y='270' width='40' height='70' rx='8'/></g><g fill='%23ef476f'><circle cx='520' cy='260' r='8'/><circle cx='600' cy='260' r='8'/></g><text x='470' y='240' font-size='18' fill='%23555' font-family='Arial'>Farmacia Vet</text></svg>" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjetas KPI -->
+        <div class="col-sm-6 col-lg-3">
+          <div class="card kpi-card shadow-sm">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-clipboard2-pulse fs-3"></i>
+                <div>
+                  <div class="text-body-secondary small">Productos</div>
+                  <div id="kpiProductos" class="fw-bold fs-5">0</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="card kpi-card shadow-sm">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-box-seam fs-3"></i>
+                <div>
+                  <div class="text-body-secondary small">Existencia total</div>
+                  <div id="kpiExistencia" class="fw-bold fs-5">0</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="card kpi-card shadow-sm">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-currency-dollar fs-3"></i>
+                <div>
+                  <div class="text-body-secondary small">Ventas (hoy)</div>
+                  <div id="kpiVentasHoy" class="fw-bold fs-5">$0.00</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="card kpi-card shadow-sm">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-thermometer-half fs-3"></i>
+                <div>
+                  <div class="text-body-secondary small">Bajo stock</div>
+                  <div id="kpiBajoStock" class="fw-bold fs-5">0</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======= INVENTARIO ======= -->
+    <section id="inventario" class="mb-5">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white d-flex flex-wrap gap-2 align-items-center justify-content-between">
+          <h2 class="h5 mb-0"><i class="bi bi-capsule me-2"></i>Inventario</h2>
+          <div class="d-flex flex-wrap gap-2">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-search"></i></span>
+              <input id="buscarProducto" type="search" class="form-control" placeholder="Buscar por nombre, categoría o SKU">
+            </div>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProducto"><i class="bi bi-plus-lg me-1"></i> Nuevo producto</button>
+            <button id="btnExportCSV" class="btn btn-outline-secondary"><i class="bi bi-filetype-csv me-1"></i> Exportar CSV</button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-middle mb-0 table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>SKU</th>
+                <th>Producto</th>
+                <th>Categoría</th>
+                <th>Presentación</th>
+                <th>Stock</th>
+                <th>Min.</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyInventario"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= VENTAS ======= -->
+    <section id="ventas" class="mb-5">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+          <h2 class="h5 mb-0"><i class="bi bi-bag-check me-2"></i>Ventas</h2>
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalVenta"><i class="bi bi-cart-plus me-1"></i> Registrar venta</button>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-middle mb-0 table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>Folio</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Producto</th>
+                <th>Cant.</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyVentas"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= CLIENTES ======= -->
+    <section id="clientes" class="mb-5">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white d-flex flex-wrap gap-2 align-items-center justify-content-between">
+          <h2 class="h5 mb-0"><i class="bi bi-people me-2"></i>Clientes</h2>
+          <div class="d-flex flex-wrap gap-2">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-search"></i></span>
+              <input id="buscarCliente" type="search" class="form-control" placeholder="Buscar por nombre, correo o teléfono">
+            </div>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCliente"><i class="bi bi-person-plus me-1"></i> Nuevo cliente</button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-middle mb-0 table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Nivel de precio</th>
+                <th>Dirección</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyClientes"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= NIVELES DE PRECIO ======= -->
+    <section id="niveles" class="mb-5">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+          <h2 class="h5 mb-0"><i class="bi bi-tags me-2"></i>Niveles de precio</h2>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNivel"><i class="bi bi-plus-lg me-1"></i> Nuevo nivel</button>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-middle mb-0 table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>Nombre</th>
+                <th>Descuento (%)</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyNiveles"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= PROMOCIONES ======= -->
+    <section id="promociones" class="mb-5">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+          <h2 class="h5 mb-0"><i class="bi bi-ticket-perforated me-2"></i>Promociones</h2>
+          <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalPromo"><i class="bi bi-plus-lg me-1"></i> Nueva promoción</button>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-middle mb-0 table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>Nombre</th>
+                <th>Productos</th>
+                <th>Descuento (%)</th>
+                <th>Desde</th>
+                <th>Hasta</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyPromos"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= REPORTES ======= -->
+    <section id="reportes" class="mb-5">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+          <h2 class="h5 mb-0"><i class="bi bi-graph-up-arrow me-2"></i>Reportes rápidos</h2>
+          <div class="d-flex gap-2">
+            <button id="btnReporteDia" class="btn btn-outline-primary btn-sm">Hoy</button>
+            <button id="btnReporteSemana" class="btn btn-outline-primary btn-sm">Esta semana</button>
+            <button id="btnReporteMes" class="btn btn-outline-primary btn-sm">Este mes</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-lg-6">
+              <div class="card shadow-sm border-0">
+                <div class="card-body">
+                  <h3 class="h6"><i class="bi bi-cash-coin me-2"></i>Ingresos</h3>
+                  <div id="reporteIngresos" class="display-6 fw-semibold">$0.00</div>
+                  <div class="text-body-secondary small">Periodo seleccionado</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card shadow-sm border-0">
+                <div class="card-body">
+                  <h3 class="h6"><i class="bi bi-clipboard2-data me-2"></i>Productos vendidos</h3>
+                  <div id="reporteProductos" class="display-6 fw-semibold">0</div>
+                  <div class="text-body-secondary small">Periodo seleccionado</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="alert alert-info mt-3 mb-0">
+            <i class="bi bi-info-circle me-1"></i> Esta es una plantilla frontal. Los datos se guardan en <strong>localStorage</strong> a modo de demo.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======= MODALES ======= -->
+
+  <!-- Producto -->
+  <div class="modal fade" id="modalProducto" tabindex="-1" aria-labelledby="modalProductoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <form id="formProducto">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalProductoLabel"><i class="bi bi-capsule me-2"></i>Nuevo producto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label">SKU</label>
+                <input name="sku" type="text" class="form-control" required />
+              </div>
+              <div class="col-md-8">
+                <label class="form-label">Nombre del producto</label>
+                <input name="nombre" type="text" class="form-control" required />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Categoría</label>
+                <input name="categoria" type="text" class="form-control" placeholder="Antiparasitario, Analgésico…" />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Presentación</label>
+                <input name="presentacion" type="text" class="form-control" placeholder="Tabletas, Jarabe, Inyectable…" />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Precio (MXN)</label>
+                <input name="precio" type="number" step="0.01" min="0" class="form-control" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Stock</label>
+                <input name="stock" type="number" min="0" class="form-control" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Stock mínimo</label>
+                <input name="minimo" type="number" min="0" class="form-control" value="5" />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Notas</label>
+                <textarea name="notas" class="form-control" rows="2" placeholder="Dosis, especies, advertencias…"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button id="btnEliminarProducto" type="button" class="btn btn-outline-danger d-none"><i class="bi bi-trash3"></i></button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-primary" type="submit"><i class="bi bi-save2 me-1"></i> Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Venta -->
+  <div class="modal fade" id="modalVenta" tabindex="-1" aria-labelledby="modalVentaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="formVenta">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalVentaLabel"><i class="bi bi-cart-plus me-2"></i>Registrar venta</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Cliente</label>
+              <select name="clienteId" class="form-select" required></select>
+              <div class="form-text">El precio considera el <strong>nivel del cliente</strong> y <strong>promociones activas</strong>.</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Producto</label>
+              <select name="sku" class="form-select" required></select>
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Cantidad</label>
+                <input name="cantidad" type="number" min="1" class="form-control" value="1" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Fecha</label>
+                <input name="fecha" type="date" class="form-control" />
+              </div>
+            </div>
+            <div class="mt-3">
+              <div class="small text-body-secondary">Precio base: <span id="ventaPrecioBase">$0.00</span> — Nivel: <span id="ventaDescNivel">0%</span> — Promo: <span id="ventaDescPromo">0%</span></div>
+              <div class="h5 mt-1">Total estimado: <span id="ventaTotalEstimado">$0.00</span></div>
+            </div>
+            <div class="alert alert-warning mt-3 mb-0 small">
+              <i class="bi bi-exclamation-triangle me-1"></i> La venta descuenta del stock del producto seleccionado.
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-success" type="submit"><i class="bi bi-check2-circle me-1"></i> Confirmar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cliente -->
+  <div class="modal fade" id="modalCliente" tabindex="-1" aria-labelledby="modalClienteLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <form id="formCliente">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalClienteLabel"><i class="bi bi-person-plus me-2"></i>Nuevo cliente</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Nombre</label>
+                <input name="nombre" type="text" class="form-control" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Correo</label>
+                <input name="correo" type="email" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Nivel de precio</label>
+                <select name="nivel" class="form-select"></select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Teléfono</label>
+                <input name="telefono" type="text" class="form-control" />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Dirección</label>
+                <textarea name="direccion" class="form-control" rows="2"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button id="btnEliminarCliente" type="button" class="btn btn-outline-danger d-none"><i class="bi bi-trash3"></i></button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-primary" type="submit"><i class="bi bi-save2 me-1"></i> Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nivel de precio -->
+  <div class="modal fade" id="modalNivel" tabindex="-1" aria-labelledby="modalNivelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="formNivel">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalNivelLabel"><i class="bi bi-tag me-2"></i>Nuevo nivel de precio</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Nombre</label>
+              <input name="nombre" type="text" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Descuento (%)</label>
+              <input name="descuento" type="number" min="0" max="100" step="0.01" class="form-control" value="0" />
+              <div class="form-text">Se aplica sobre el precio base del producto.</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Descripción</label>
+              <input name="descripcion" type="text" class="form-control" placeholder="General, Mayoreo, VIP…" />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button id="btnEliminarNivel" type="button" class="btn btn-outline-danger d-none"><i class="bi bi-trash3"></i></button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-primary" type="submit"><i class="bi bi-save2 me-1"></i> Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Promoción -->
+  <div class="modal fade" id="modalPromo" tabindex="-1" aria-labelledby="modalPromoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <form id="formPromo">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalPromoLabel"><i class="bi bi-ticket-perforated me-2"></i>Nueva promoción</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Nombre</label>
+                <input name="nombre" type="text" class="form-control" placeholder="Promo de invierno" required />
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Descuento (%)</label>
+                <input name="descuento" type="number" min="0" max="100" step="0.01" class="form-control" value="10" required />
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Productos</label>
+                <select name="skus" class="form-select" multiple size="5"></select>
+                <div class="form-text">Mantén Ctrl/⌘ para múltiples.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Desde</label>
+                <input name="desde" type="date" class="form-control" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Hasta</label>
+                <input name="hasta" type="date" class="form-control" required />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button id="btnEliminarPromo" type="button" class="btn btn-outline-danger d-none"><i class="bi bi-trash3"></i></button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-warning" type="submit"><i class="bi bi-save2 me-1"></i> Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toasts -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3"></div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- App JS -->
+  <script src="app.js"></script>
+</body>
+</html>
